@@ -3,8 +3,8 @@ import java.util.Random;
 import java.util.*;
 
 public class MazeGeneration {
-    static int numbCols = 10;
-    static int numbRows = 10;
+    static int numbCols = 5;
+    static int numbRows = 5;
     static int numbMazes = 6;
 
     static ArrayList<Boolean[][]> mazeList = new ArrayList<>();
@@ -18,8 +18,40 @@ public class MazeGeneration {
         generateMazes();
         drawMazes();
         setHeuristicValues();
-        printHeuristics();
+        //printHeuristics();
+        //minHeapTest();
+        System.out.println("Maze " + 6);
+        RepeatedForwardA r = new RepeatedForwardA(goal, heuristicValues, mazeList.get(4));
+        r.printCoords();
     }
+
+    //delete before submitting
+    /*
+    public static void minHeapTest(){
+        BinaryHeap h = new BinaryHeap();
+        h.addElement(2);
+        h.addElement(5);
+        h.addElement(8);
+        h.addElement(9);
+        h.addElement(200);
+        h.addElement(30);
+        h.addElement(1);
+        h.addElement(-100);
+        System.out.println(h.getMin());
+        h.deleteMin();
+        System.out.println(h.getMin());
+        h.deleteMin();
+        System.out.println(h.getMin());
+        h.deleteMin();
+        System.out.println(h.getMin());
+        h.deleteMin();
+        System.out.println(h.getMin());
+        h.deleteMin();
+        System.out.println(h.getMin());
+        h.deleteMin();
+        System.out.println(h.getMin());
+    }
+    */
 
     public static void setHeuristicValues(){
         for(int i = 0; i < numbRows; i++){
@@ -73,22 +105,6 @@ public class MazeGeneration {
             // At this point a full maze has been done generating, so add it to
             // finished maze array.
             mazeList.add(maze);
-        }
-    }
-
-    public static void generateMazes2(){
-        Stack<Coordinate> stack = new Stack<>();
-        Random rand = new Random(randomSeed);
-        Boolean[][] mazeVisited = new Boolean[numbCols][numbRows];
-        //Start off on first maze.
-        for(int i = 0; i < numbMazes; i++) {
-            Boolean[][] mazeUnblocked = new Boolean[numbCols][numbRows];
-            int startRow = rand.nextInt(numbRows);
-            int startCol = rand.nextInt(numbCols);
-            Coordinate a = new Coordinate(startRow, startCol);
-            mazeVisited[startRow][startCol] = true;
-            mazeUnblocked[startRow][startCol] = true;
-
         }
     }
 
