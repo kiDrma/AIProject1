@@ -3,10 +3,13 @@ import java.util.Random;
 import java.util.*;
 
 public class MazeGeneration {
-    static int numbCols = 5;
-    static int numbRows = 5;
-    static int numbMazes = 3;
+    static int numbCols = 10;
+    static int numbRows = 10;
+    static int numbMazes = 6;
+
     static ArrayList<Boolean[][]> mazeList = new ArrayList<>();
+    static int[][] heuristicValues = new int[numbRows][numbCols];
+    static Coordinate goal = new Coordinate(numbRows -1, numbCols - 1);
 
     static double chanceBlocked = .3;
     static int randomSeed = 500;
@@ -14,6 +17,37 @@ public class MazeGeneration {
     public static void main(String[] args) {
         generateMazes();
         drawMazes();
+        setHeuristicValues();
+        printHeuristics();
+    }
+
+    public static void setHeuristicValues(){
+        for(int i = 0; i < numbRows; i++){
+            for(int j = 0; j < numbCols; j++){
+                int heuristic = 0;
+                int row = goal.row;
+                int col = goal.col;
+                while(row != i){
+                    row--;
+                    heuristic++;
+                }
+                while(col != j){
+                    col--;
+                    heuristic++;
+                }
+                heuristicValues[i][j] = heuristic;
+            }
+        }
+    }
+
+    public static void printHeuristics(){
+        System.out.println("Heuristic value maze: ");
+        for(int i = 0; i < numbRows; i++) {
+            for (int j = 0; j < numbCols; j++) {
+                System.out.print(heuristicValues[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 
     public static void generateMazes(){
@@ -43,7 +77,7 @@ public class MazeGeneration {
     }
 
     public static void generateMazes2(){
-        Stack<Agent> stack = new Stack<>();
+        Stack<Coordinate> stack = new Stack<>();
         Random rand = new Random(randomSeed);
         Boolean[][] mazeVisited = new Boolean[numbCols][numbRows];
         //Start off on first maze.
@@ -51,14 +85,14 @@ public class MazeGeneration {
             Boolean[][] mazeUnblocked = new Boolean[numbCols][numbRows];
             int startRow = rand.nextInt(numbRows);
             int startCol = rand.nextInt(numbCols);
-            Agent a = new Agent(startRow, startCol);
+            Coordinate a = new Coordinate(startRow, startCol);
             mazeVisited[startRow][startCol] = true;
             mazeUnblocked[startRow][startCol] = true;
 
         }
     }
 
-    public static void findAndPickNeighbor(Agent a, Stack s){
+    public static void findAndPickNeighbor(Coordinate a, Stack s){
         boolean picked = false;
         while(picked = false){
 
