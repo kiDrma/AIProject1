@@ -6,6 +6,7 @@ public class MazeGeneration {
     static int numbCols = 10;
     static int numbRows = 10;
     static int numbMazes = 6;
+
     static ArrayList<Boolean[][]> mazeList = new ArrayList<>();
     static int[][] heuristicValues = new int[numbRows][numbCols];
     static Coordinate goal = new Coordinate(numbRows -1, numbCols - 1);
